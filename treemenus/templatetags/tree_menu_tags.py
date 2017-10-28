@@ -36,7 +36,7 @@ def show_menu(context, menu_name, menu_type=None):
         # Fetch menu in single query
         menu_items = MenuItem.objects.filter(menu_id=menu_object.id)\
             .order_by('-level', 'parent_id', 'rank')\
-            .select_related('extension')
+            .select_related('menu')
 
         # Flag which determines that last level has been processed
         last_level_processed = False

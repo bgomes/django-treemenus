@@ -40,5 +40,6 @@ setup(
     ],
     install_requires=[
         'Django>=1.0',
+        'django-fontawesome==0.3.1',
     ],
 )

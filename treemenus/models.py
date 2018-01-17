@@ -2,12 +2,10 @@ from itertools import chain
 
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
-from fontawesome.fields import IconField
-
 
 class MenuItem(models.Model):
     parent = models.ForeignKey('self', verbose_name=_('parent'), null=True, blank=True)
-    icon = IconField()
+    icon = models.CharField(_('icon'), max_length=60)
     caption = models.CharField(_('caption'), max_length=100)
     legend = models.CharField(_('caption'), max_length=200, blank=True)
     url = models.CharField(_('URL'), max_length=200, blank=True)

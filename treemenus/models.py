@@ -3,6 +3,13 @@ from itertools import chain
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+URL_TARGET_CHOICES = (
+    ('_blank', _(u'Load in a new window')),
+    ('_self', _(u'Load in the same frame as it was clicked')),
+    ('_parent', _(u'Load in the parent frameset')),
+    ('_top', _(u'Load in the full body of the window'))
+)
+
 class MenuItem(models.Model):
     parent = models.ForeignKey('self', verbose_name=_('parent'), null=True, blank=True)
     icon = models.CharField(_('icon'), max_length=60)
@@ -14,7 +21,10 @@ class MenuItem(models.Model):
     rank = models.IntegerField(_('rank'), default=0, editable=False)
     menu = models.ForeignKey('Menu', related_name='contained_items',
                              verbose_name=_('menu'), null=True, blank=True, editable=False)
-
+    menu_url_target = models.CharField(_(u"Menu URL Target"), max_length=255,
+                                       choices=URL_TARGET_CHOICES,
+                                       default="_self",
+                                       null=True, blank=True)
     def __str__(self):
         return self.caption
 
